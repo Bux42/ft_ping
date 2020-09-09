@@ -8,6 +8,7 @@ SRCS	=	\
 main/main.c\
 socket/socket_init.c\
 argv/argv_parser.c\
+argv/ipv4_parser.c\
 libstr/libstr_1.c\
 libstr/strsplit.c
 
