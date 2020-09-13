@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   libstr_2.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: videsvau <videsvau@42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/09/13 14:40:52 by videsvau          #+#    #+#             */
+/*   Updated: 2020/09/13 14:40:55 by videsvau         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/header.h"
 
 int				begin_with(char *s1, char *s2)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	if (s1 && s2 && ft_strlen(s2) > ft_strlen(s1))
@@ -11,41 +23,41 @@ int				begin_with(char *s1, char *s2)
 			if (s1[i] != s2[i])
 				return (0);
 	}
-	return (1);
+	return ((int)ft_strlen(s1) == i);
 }
 
-void            ft_bzero(void* data, size_t len)
+void			ft_bzero(void* data, size_t len)
 {
-    size_t  i;
+	size_t	i;
 
-    i = 0;
-    while (i < len)
-    {
-        ((char *)data)[i] = 0;
-        i++;
-    }
+	i = 0;
+	while (i < len)
+	{
+		((char *)data)[i] = 0;
+		i++;
+	}
 }
 
-char            *ft_strdup(char *str)
+char			*ft_strdup(char *str)
 {
-    char    *ret;
-    int     i;
-    
-    if (!ft_strlen(str))
-        return (NULL);
-    if (!(ret = (char*)malloc(sizeof(char) * (ft_strlen(str) + 1))))
-        return (NULL);
+	char	*ret;
+	int		i;
+		
+	if (!ft_strlen(str))
+		return (NULL);
+	if (!(ret = (char*)malloc(sizeof(char) * (ft_strlen(str) + 1))))
+		return (NULL);
 
-    i = -1;
-    while (str[++i])
-        ret[i] = str[i];
-    ret[i] = 0;
-    return (ret);
+	i = -1;
+	while (str[++i])
+		ret[i] = str[i];
+	ret[i] = 0;
+	return (ret);
 }
 
-char            *ft_strcpy(char *dest, char *src)
+char			*ft_strcpy(char *dest, char *src)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (src[i] != '\0')
