@@ -85,8 +85,5 @@ char            **ft_strsplit(char *s, char c)
 		ret[i] = get_word(s, i, c);
 		i++;
 	}
-
-    printf("%d words\n", len);
-
     return (ret);
 }

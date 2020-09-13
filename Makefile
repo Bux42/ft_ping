@@ -7,10 +7,15 @@ COMP		= gcc
 SRCS	=	\
 main/main.c\
 socket/socket_init.c\
+socket/socket.c\
+socket/ping_rcv.c\
+socket/ping.c\
+error_handling/getaddrinfo.c\
 argv/argv_parser.c\
-argv/ipv4_parser.c\
 libstr/libstr_1.c\
-libstr/strsplit.c
+libstr/libstr_2.c\
+libstr/strsplit.c\
+packet/create_packet.c
 
 RED='\e[1;31m'
 GRN='\e[1;32m'

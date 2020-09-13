@@ -1,20 +1,72 @@
 #include "../../inc/header.h"
 
-int         hostname(char *s)
+int			valid_count(char *s)
 {
-    if (!s)
-        return (0);
-    return (0);
+	if (ft_strlen(s) > 2)
+	{
+		g_ping.max_count = ft_atoi(&s[2]);
+		return (g_ping.max_count > 0);
+	}
+	return (0);
 }
 
-int         valid_argv(char *s)
+int         check_flag(char *s, int flag)
 {
-    if (s)
+	if (s[1] == 'v')
+		return (flag | VERBOSE_FLAG);
+	if (s[1] == 'h')
+		return (flag | HELP_FLAG);
+	if (s[1] == 'a')
+		return (flag | AUDIBLE_FLAG);
+	if (s[1] == 'q')
+		return (flag | QUIET_FLAG);
+	if (s[1] == 'c' && valid_count(s))
+		return (flag | COUNT_FLAG);
+    return (-1);
+}
+
+int         valid_address()
+{
+    struct addrinfo hints;
+    int             ret;
+
+    ft_bzero(&hints, sizeof(struct addrinfo));
+    hints.ai_flags = AI_CANONNAME;
+    hints.ai_family = AF_INET;
+
+    ret = getaddrinfo(g_ping.socket->address, NULL, &hints, &g_ping.addrinf);
+    if (ret == 0)
+        ret = 1;
+    else
     {
-        if (ipv4(s))
-            return (1);
-        else if (hostname(s))
-            return (1);
+        printf("ping : %s: %s\n", g_ping.socket->address, g_ping.getaddr_err[ret + 11]);
+        ret = 0;
     }
-    return (0);
+    return (ret);
+}
+
+int         valid_argv(char **s)
+{
+    int i;
+    int done;
+
+    i = 0;
+    done = 0;
+    while (s[++i])
+    {
+        if (ft_strlen(s[i]) > 1 && s[i][0] == '-')
+        {
+			if ((g_ping.options = check_flag(s[i], g_ping.options)) == -1)
+			{
+                printf("ft_ping: invalid option -- '%s'\n", s[i]);
+                return (0);
+            }
+        }
+        else if (done == 0)
+        {
+            done = 1;
+            g_ping.socket->address = ft_strdup(s[i]);
+        }
+    }
+    return (1);
 }

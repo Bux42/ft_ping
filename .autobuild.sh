@@ -44,7 +44,7 @@ do
             sleep 2
         else
             echo "___________________________________"
-            ./ft_ping $(cat .autobuild_args)
+            sudo ./ft_ping $(cat .autobuild_args)
             rebuild=$((0))
         fi
         

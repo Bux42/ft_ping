@@ -1,26 +1,22 @@
 #include "../../inc/header.h"
 
+int print_verbose()
+{
+    printf("Usage: ping [-hv]\n");
+    return (0);
+}
+
 int main(int ac, char **av)
 {
-    if (av && ac == 2 && valid_argv(av[1]))
+    getaddrinfo_error();
+    if (ac > 1 && init_socket(&g_ping) && valid_argv(av))
     {
-        printf("%s\n", av[1]);
+        if (g_ping.options & HELP_FLAG)
+            return (print_verbose());
+        if (valid_address(g_ping.socket->address) && init_setsockopt())
+            init_ping();
     }
-    
-    t_socket *socket;
-
-    if (!(socket = (t_socket*)malloc(sizeof(t_socket))))
-    {
-        
-    }
-    struct timeval tv;
-    struct timezone tz;
-
-    if (gettimeofday(&tv, &tz) == 0)
-    {
-        printf("%ld.%06ld\n", tv.tv_sec, tv.tv_usec);
-    }
-
-    
+	else if (ac == 1)
+		return (print_verbose());
     return (0);
 }
