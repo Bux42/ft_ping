@@ -46,16 +46,16 @@ int			valid_address()
 	hints.ai_flags = AI_CANONNAME;
 	hints.ai_family = AF_INET;
 
-	if (begin_with("http://", g_ping.socket->address))
-		ret = getaddrinfo(&g_ping.socket->address[7], NULL, &hints, &g_ping.addrinf);
+	if (begin_with("http://", g_ping.address))
+		ret = getaddrinfo(&g_ping.address[7], NULL, &hints, &g_ping.addrinf);
 	else
-		ret = getaddrinfo(g_ping.socket->address, NULL, &hints, &g_ping.addrinf);
+		ret = getaddrinfo(g_ping.address, NULL, &hints, &g_ping.addrinf);
 	
 	if (ret == 0)
 		ret = 1;
 	else
 	{
-		printf("ping : %s: %s\n", g_ping.socket->address, g_ping.getaddr_err[ret + 11]);
+		printf("./ft_ping : %s: %s\n", g_ping.address, g_ping.getaddr_err[ret + 11]);
 		ret = 0;
 	}
 	return (ret);
@@ -74,14 +74,14 @@ int			valid_argv(char **s)
 		{
 			if ((g_ping.options = check_flag(s[i], g_ping.options)) == -1)
 			{
-				printf("ft_ping: invalid option -- '%s'\n", s[i]);
+				printf("./ft_ping: invalid option -- '%s'\n", s[i]);
 				return (0);
 			}
 		}
 		else if (done == 0)
 		{
 			done = 1;
-			g_ping.socket->address = ft_strdup(s[i]);
+			g_ping.address = ft_strdup(s[i]);
 		}
 	}
 	return (1);

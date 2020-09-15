@@ -38,12 +38,11 @@ void		ping_interupt(int inp)
 	timediff += (timeval_now.tv_sec - g_ping.start_time.tv_sec) * 1000;
 	loss = ((float)g_ping.nb_received_packets / (float)g_ping.nb_sent_packets);
 	loss = 100 - loss * (float)100;
-	printf("\n--- %s ping statistics ---\n", g_ping.socket->address);
+	printf("\n--- %s ping statistics ---\n", g_ping.address);
 	printf("%ld packets transmitted, %ld received, %ld%c packet loss, time %d%s\n", 
 		g_ping.nb_sent_packets, g_ping.nb_received_packets, (size_t)loss, '%', (int)timediff, "ms");
-
+	close(g_ping.socket->sockfd);
 	exit(1);
-	
 }
 
 void		init_ping(void)

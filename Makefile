@@ -1,7 +1,7 @@
 NAME		= ft_ping
 HPATH		= inc
 INC			= -I$(HPATH)
-FLAGS		= -Wall -Werror -Wextra #-fsanitize=address -g3 #-fbounds-check
+FLAGS		= -Wall -Werror -Wextra -fsanitize=address -g3 #-fbounds-check
 COMP		= gcc
 
 SRCS	=	\

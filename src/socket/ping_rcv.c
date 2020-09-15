@@ -23,7 +23,7 @@ void reverse_dns_lookup(uint32_t ip_addr)
 
 	if (getnameinfo((struct sockaddr *)&temp_addr, len, g_ping.reverse_dns,
 					NI_MAXHOST, NULL, 0, NI_NOFQDN) != 0)
-		ft_strcpy(g_ping.reverse_dns, g_ping.socket->address);
+		ft_strcpy(g_ping.reverse_dns, g_ping.address);
 }
 
 void print_ack_message(ssize_t ret, struct iphdr *ip_header,
@@ -44,7 +44,7 @@ void print_ack_message(ssize_t ret, struct iphdr *ip_header,
 	if (g_ping.options & AUDIBLE_FLAG)
 		printf("\a");
 	printf("%zd bytes from %s (%s): icmp_seq=%hu ttl=%u ", ret - sizeof(struct iphdr),
-		   g_ping.reverse_dns, g_ping.socket->address,
+		   g_ping.reverse_dns, g_ping.address,
 		   icmp_header->un.echo.sequence, ip_header->ttl);
 	if (elapsed_time > 100.f)
 		printf("time=%zd ms\n", (ssize_t)elapsed_time);
@@ -69,9 +69,7 @@ int check_response(char *buffer, ssize_t ret)
 		return (1);
 	}
 	else
-	{
 		return (0);
-	}
 }
 
 void get_response(void)
@@ -94,6 +92,10 @@ void get_response(void)
 	ret = recvmsg(g_ping.socket->sockfd, &message, 0);
 	if (ret > 0 && check_response(buffer, ret) == 0)
 		get_response();
+	else if (g_ping.options & VERBOSE_FLAG)
+		printf("./ft_ping no response from %s\n", g_ping.address);
+	
+	
 	if (g_ping.options & COUNT_FLAG && (int)g_ping.nb_sent_packets == g_ping.max_count)
 		ping_interupt(1);
 }

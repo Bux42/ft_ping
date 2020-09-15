@@ -34,7 +34,6 @@
 # define QUIET_FLAG 4
 # define HELP_FLAG 8
 # define COUNT_FLAG 16
-# define MESSAGE "Hello ? "
 
 typedef struct			s_packet
 {
@@ -48,7 +47,6 @@ typedef struct			s_socket
 	int					s_family;
 	int					s_type;
 	int					s_protocol;
-	char				*address;
 	struct sockaddr_in	sock_addr_in;
 }						t_socket;
 
@@ -56,6 +54,7 @@ typedef struct			s_ping
 {
 	int					flags;
 	struct s_socket		*socket;
+	char				*address;
 	uint16_t			id;
 	uint16_t			sequence;
 	uint32_t			ttl;
@@ -72,6 +71,7 @@ typedef struct			s_ping
 
 int						print_verbose();
 
+void					debug_flags();
 int						valid_argv(char **s);
 int						valid_address();
 
