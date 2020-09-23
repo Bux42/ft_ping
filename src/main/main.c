@@ -14,7 +14,7 @@
 
 int		print_verbose(void)
 {
-	printf("Usage: ping [-hv]\n");
+	printf("Usage: ping [-hvcqa]\n");
 	return (0);
 }
 

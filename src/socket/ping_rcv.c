@@ -69,7 +69,11 @@ int check_response(char *buffer, ssize_t ret)
 		return (1);
 	}
 	else
+	{
+		printf("BAD\n");
 		return (0);
+	}
+		
 }
 
 void get_response(void)
@@ -92,9 +96,9 @@ void get_response(void)
 	ret = recvmsg(g_ping.socket->sockfd, &message, 0);
 	if (ret > 0 && check_response(buffer, ret) == 0)
 		get_response();
-	else if (g_ping.options & VERBOSE_FLAG)
-		printf("./ft_ping no response from %s\n", g_ping.address);
-	
+	else if (ret == -1 && g_ping.options & VERBOSE_FLAG)
+		printf("From %s icmp_seq=%ld Destination Host Unreachable\n", g_ping.address, 
+		g_ping.nb_sent_packets - 1);
 	
 	if (g_ping.options & COUNT_FLAG && (int)g_ping.nb_sent_packets == g_ping.max_count)
 		ping_interupt(1);
