@@ -70,7 +70,6 @@ int check_response(char *buffer, ssize_t ret)
 	}
 	else
 	{
-		printf("BAD\n");
 		return (0);
 	}
 		
